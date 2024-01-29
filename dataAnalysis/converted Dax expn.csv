@@ -1,0 +1,345 @@
+,column_name,formula
+0,Dual Finance,"ISNULL(IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'DUAL' THEN
+CURR_ELEMENT_AMOUNT
+END)"
+1,Mitigation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'MITIGATION' THEN
+    IIF(ISNULL(CCHNG_MITG_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+2,Adaptation Finance ,ISNULL(Calculation_460493125650857985)
+3,Approved Amount ,ORIG_ELEMENT_AMOUNT
+4,CF Total ,"IF CC_ES_element__Yes_No_ = 'Yes' THEN
+    CURR_ELEMENT_AMOUNT
+    else 0
+end"
+5,Adaptation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'ADAPTATION' THEN
+    IIF(ISNULL(CCHNG_ADPT_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+6,Filter Dual,(NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM))
+7,Climate Finance ,CURR_ELEMENT_AMOUNT (copy)
+8,Count_Dual,"COUNTD(IF Adaptation (copy 2) > 0 THEN 
+    IF CC_ES_element__Yes_No_ = 'Yes' THEN Operation_Number END
+END)"
+9,CF Operation Number ,COUNTD(IF CC_ES_element__Yes_No_ = 'Yes' THEN Operation_Number END)
+10,Count_Mitigation,"COUNTD(IF Adaptation (copy) > 0 THEN 
+    IF CC_ES_element__Yes_No_ = 'Yes' THEN Operation_Number END
+END)"
+11,Count_Current_Approved_Amount,COUNTD(IF CURRENT_APPROVED_AMOUNT > 0 THEN Operation_Number END)
+12,Count_Adaptacion,"COUNTD(IF Calculation_460493125650857985 > 0 THEN 
+    IF CC_ES_element__Yes_No_ = 'Yes' THEN Operation_Number END
+END)"
+13,Dual Finance ,Adaptation (copy 2)
+14,Mitigation Finance ,ISNULL(Adaptation (copy))
+15,Number of Projects,Count_Mitigation (copy 2)
+16,Number of Projects with CF,Count_Current_Element_Amount (copy 3)
+17,,"DATETRUNC('year', Approval_Date)"
+18,Adaptation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'ADAPTATION' THEN
+    IIF(ISNULL(CCHNG_ADPT_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+19,Filter Dual,(NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM))
+20,Adaptation Percentage ,sum(Calculation_460493125650857985)/sum(CURR_ELEMENT_AMOUNT)
+21,Adaptation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'ADAPTATION' THEN
+    IIF(ISNULL(CCHNG_ADPT_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+22,DonutChart,0
+23,Count_Current_Element_Amount,COUNTD(IF CURR_ELEMENT_AMOUNT > 0 THEN Operation_Number END)
+24,Type Cathegory,"IF NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND ISNULL(CCHNG_MITG_CAT_ENGL_NM) THEN ""Adaptation""
+ELSEIF NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM) AND ISNULL(CCHNG_ADPT_CAT_ENGL_NM) THEN ""Mitigation""
+ELSEIF NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) THEN ""Dual""
+END"
+25,Filter Dual,(NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM))
+26,Tota CF,TOTAL(SUM(CURR_ELEMENT_AMOUNT))
+27,Percentage by Category,SUM(CURR_ELEMENT_AMOUNT)/Calculation_949978110427234306
+28,Count_Current_Element_Amount,COUNTD(IF CURR_ELEMENT_AMOUNT > 0 THEN Operation_Number END)
+29,Type Cathegory,"IF NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND ISNULL(CCHNG_MITG_CAT_ENGL_NM) THEN ""Adaptation""
+ELSEIF NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM) AND ISNULL(CCHNG_ADPT_CAT_ENGL_NM) THEN ""Mitigation""
+ELSEIF NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) THEN ""Dual""
+END"
+30,Tota CF,TOTAL(SUM(CURR_ELEMENT_AMOUNT))
+31,Percentage by Category,SUM(CURR_ELEMENT_AMOUNT)/Calculation_949978110427234306
+32,Dual Fixed,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'DUAL' THEN
+   CURR_ELEMENT_AMOUNT
+END"
+33,DualFixed Percentage,SUM(Adaptation (copy 5))/sum(CURR_ELEMENT_AMOUNT)
+34,Filter Dual,(NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM))
+35,Mitigation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'MITIGATION' THEN
+    IIF(ISNULL(CCHNG_MITG_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+36,Filter Dual,(NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM))
+37,Tota CF,TOTAL(SUM(CURR_ELEMENT_AMOUNT))
+38,Mitigation Percentage ,sum(Adaptation (copy))/Calculation_949978110427234306
+39,Dual,"IF CATEGORY = 'DUAL' 
+  THEN CURR_ELEMENT_AMOUNT 
+  ELSE 0
+END"
+40,Mitigation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'MITIGATION' THEN
+    IIF(ISNULL(CCHNG_MITG_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+41,CF Total ,"IF CC_ES_element__Yes_No_ = 'Yes' THEN
+    CURR_ELEMENT_AMOUNT
+    else 0
+end"
+42,Adaptation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'ADAPTATION' THEN
+    IIF(ISNULL(CCHNG_ADPT_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+43,CF Percentage,SUM(CURR_ELEMENT_AMOUNT (copy))/TOTAL(SUM(ORIG_ELEMENT_AMOUNT))
+44,Dual,"IF CATEGORY = 'DUAL' 
+  THEN CURR_ELEMENT_AMOUNT 
+  ELSE 0
+END"
+45,Mitigation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'MITIGATION' THEN
+    IIF(ISNULL(CCHNG_MITG_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+46,CF Total ,"IF CC_ES_element__Yes_No_ = 'Yes' THEN
+    CURR_ELEMENT_AMOUNT
+    else 0
+end"
+47,ZN(SUM([Mitigation])),ISNULL(SUM(Adaptation (copy)))
+48,ZN(SUM([Adaptation])),ISNULL(SUM(Calculation_460493125650857985))
+49,Adaptation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'ADAPTATION' THEN
+    IIF(ISNULL(CCHNG_ADPT_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+50,CF Percentage,SUM(CURR_ELEMENT_AMOUNT (copy))/TOTAL(SUM(ORIG_ELEMENT_AMOUNT))
+51,Dual Finance,"ISNULL(IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'DUAL' THEN
+CURR_ELEMENT_AMOUNT
+END)"
+52,Mitigation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'MITIGATION' THEN
+    IIF(ISNULL(CCHNG_MITG_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+53,Adaptation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'ADAPTATION' THEN
+    IIF(ISNULL(CCHNG_ADPT_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+54,Count_Current_Element_Amount,COUNTD(IF CURR_ELEMENT_AMOUNT > 0 THEN Operation_Number END)
+55,Type Cathegory,"IF NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND ISNULL(CCHNG_MITG_CAT_ENGL_NM) THEN ""Adaptation""
+ELSEIF NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM) AND ISNULL(CCHNG_ADPT_CAT_ENGL_NM) THEN ""Mitigation""
+ELSEIF NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) THEN ""Dual""
+END"
+56,Tota CF,TOTAL(SUM(CURR_ELEMENT_AMOUNT))
+57,Percentage by Category,SUM(CURR_ELEMENT_AMOUNT)/Calculation_949978110427234306
+58,Count_Dual,"COUNTD(IF Adaptation (copy 2) > 0 THEN 
+    IF CC_ES_element__Yes_No_ = 'Yes' THEN Operation_Number END
+END)"
+59,Count_Mitigation,"COUNTD(IF Adaptation (copy) > 0 THEN 
+    IF CC_ES_element__Yes_No_ = 'Yes' THEN Operation_Number END
+END)"
+60,Count_Adaptacion,"COUNTD(IF Calculation_460493125650857985 > 0 THEN 
+    IF CC_ES_element__Yes_No_ = 'Yes' THEN Operation_Number END
+END)"
+61,,"DATETRUNC('year', Approval_Date)"
+62,Dual Finance,"ISNULL(IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'DUAL' THEN
+CURR_ELEMENT_AMOUNT
+END)"
+63,Mitigation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'MITIGATION' THEN
+    IIF(ISNULL(CCHNG_MITG_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+64,Adaptation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'ADAPTATION' THEN
+    IIF(ISNULL(CCHNG_ADPT_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+65,Count_Current_Element_Amount,COUNTD(IF CURR_ELEMENT_AMOUNT > 0 THEN Operation_Number END)
+66,Type Cathegory,"IF NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND ISNULL(CCHNG_MITG_CAT_ENGL_NM) THEN ""Adaptation""
+ELSEIF NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM) AND ISNULL(CCHNG_ADPT_CAT_ENGL_NM) THEN ""Mitigation""
+ELSEIF NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) THEN ""Dual""
+END"
+67,Tota CF,TOTAL(SUM(CURR_ELEMENT_AMOUNT))
+68,Percentage by Category,SUM(CURR_ELEMENT_AMOUNT)/Calculation_949978110427234306
+69,Count_Dual,"COUNTD(IF Adaptation (copy 2) > 0 THEN 
+    IF CC_ES_element__Yes_No_ = 'Yes' THEN Operation_Number END
+END)"
+70,Count_Mitigation,"COUNTD(IF Adaptation (copy) > 0 THEN 
+    IF CC_ES_element__Yes_No_ = 'Yes' THEN Operation_Number END
+END)"
+71,Count_Adaptacion,"COUNTD(IF Calculation_460493125650857985 > 0 THEN 
+    IF CC_ES_element__Yes_No_ = 'Yes' THEN Operation_Number END
+END)"
+72,,"DATETRUNC('year', Approval_Date)"
+73,CF Total ,"IF CC_ES_element__Yes_No_ = 'Yes' THEN
+    CURR_ELEMENT_AMOUNT
+    else 0
+end"
+74,Total Percentage,SUM(CURR_ELEMENT_AMOUNT (copy))/SUM(ORIG_ELEMENT_AMOUNT)
+75,CF Operation Number ,COUNTD(IF CC_ES_element__Yes_No_ = 'Yes' THEN Operation_Number END)
+76,Count_Current_Approved_Amount,COUNTD(IF CURRENT_APPROVED_AMOUNT > 0 THEN Operation_Number END)
+77,,"DATETRUNC('year', Approval_Date)"
+78,,"DATETRUNC('year', Approval_Date)"
+79,Dual,"IF CATEGORY = 'DUAL' 
+  THEN CURR_ELEMENT_AMOUNT 
+  ELSE 0
+END"
+80,Mitigation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'MITIGATION' THEN
+    IIF(ISNULL(CCHNG_MITG_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+81,Approved Amount ,ORIG_ELEMENT_AMOUNT
+82,CF Total ,"IF CC_ES_element__Yes_No_ = 'Yes' THEN
+    CURR_ELEMENT_AMOUNT
+    else 0
+end"
+83,Adaptation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'ADAPTATION' THEN
+    IIF(ISNULL(CCHNG_ADPT_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+84,CF Operation Number ,COUNTD(IF CC_ES_element__Yes_No_ = 'Yes' THEN Operation_Number END)
+85,Count_Current_Approved_Amount,COUNTD(IF CURRENT_APPROVED_AMOUNT > 0 THEN Operation_Number END)
+86,Number of Projects,Count_Mitigation (copy 2)
+87,Number of Projects with CF,Count_Current_Element_Amount (copy 3)
+88,,"DATETRUNC('year', Approval_Date)"
+89,Min Date,{ FIXED: min(Approval_Date)}
+90,Max Date,{FIXED: MAX(Approval_Date)}
+91,Type Cathegory,"IF NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND ISNULL(CCHNG_MITG_CAT_ENGL_NM) THEN ""Adaptation""
+ELSEIF NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM) AND ISNULL(CCHNG_ADPT_CAT_ENGL_NM) THEN ""Mitigation""
+ELSEIF NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) THEN ""Dual""
+END"
+92,Filter Dual,(NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM))
+93,Min Date,{ FIXED: min(Approval_Date)}
+94,Max Date,{FIXED: MAX(Approval_Date)}
+95,Name_Country Header,Name_Country
+96,Name_Country Header,Name_Country
+97,Min Date,{ FIXED: min(Approval_Date)}
+98,Max Date,{FIXED: MAX(Approval_Date)}
+99,Name_Country Header,Name_Country
+100,Min Date,{ FIXED: min(Approval_Date)}
+101,Max Date,{FIXED: MAX(Approval_Date)}
+102,Name_Country Header,Name_Country
+103,Name_Country Header,Name_Country
+104,Dual Finance,"ISNULL(IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'DUAL' THEN
+CURR_ELEMENT_AMOUNT
+END)"
+105,Mitigation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'MITIGATION' THEN
+    IIF(ISNULL(CCHNG_MITG_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+106,CF Total ,"IF CC_ES_element__Yes_No_ = 'Yes' THEN
+    CURR_ELEMENT_AMOUNT
+    else 0
+end"
+107,Total Percentage,SUM(CURR_ELEMENT_AMOUNT (copy))/SUM(ORIG_ELEMENT_AMOUNT)
+108,Adaptation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'ADAPTATION' THEN
+    IIF(ISNULL(CCHNG_ADPT_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+109,Dual Finance,"ISNULL(IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'DUAL' THEN
+CURR_ELEMENT_AMOUNT
+END)"
+110,Mitigation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'MITIGATION' THEN
+    IIF(ISNULL(CCHNG_MITG_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+111,CF Total ,"IF CC_ES_element__Yes_No_ = 'Yes' THEN
+    CURR_ELEMENT_AMOUNT
+    else 0
+end"
+112,Total Percentage,SUM(CURR_ELEMENT_AMOUNT (copy))/SUM(ORIG_ELEMENT_AMOUNT)
+113,Adaptation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'ADAPTATION' THEN
+    IIF(ISNULL(CCHNG_ADPT_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+114,Mitigation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'MITIGATION' THEN
+    IIF(ISNULL(CCHNG_MITG_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+115,CF Total ,"IF CC_ES_element__Yes_No_ = 'Yes' THEN
+    CURR_ELEMENT_AMOUNT
+    else 0
+end"
+116,Total Percentage,SUM(CURR_ELEMENT_AMOUNT (copy))/SUM(ORIG_ELEMENT_AMOUNT)
+117,Adaptation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'ADAPTATION' THEN
+    IIF(ISNULL(CCHNG_ADPT_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+118,Tota CF,TOTAL(SUM(CURR_ELEMENT_AMOUNT))
+119,Mitigation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'MITIGATION' THEN
+    IIF(ISNULL(CCHNG_MITG_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+120,DonutChart,0
+121,Count_Current_Element_Amount,COUNTD(IF CURR_ELEMENT_AMOUNT > 0 THEN Operation_Number END)
+122,Type Cathegory,"IF NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND ISNULL(CCHNG_MITG_CAT_ENGL_NM) THEN ""Adaptation""
+ELSEIF NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM) AND ISNULL(CCHNG_ADPT_CAT_ENGL_NM) THEN ""Mitigation""
+ELSEIF NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) THEN ""Dual""
+END"
+123,Filter Dual,(NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM))
+124,Tota CF,TOTAL(SUM(CURR_ELEMENT_AMOUNT))
+125,Percentage by Category,SUM(CURR_ELEMENT_AMOUNT)/Calculation_949978110427234306
+126,Count_Current_Element_Amount,COUNTD(IF CURR_ELEMENT_AMOUNT > 0 THEN Operation_Number END)
+127,Type Cathegory,"IF NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND ISNULL(CCHNG_MITG_CAT_ENGL_NM) THEN ""Adaptation""
+ELSEIF NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM) AND ISNULL(CCHNG_ADPT_CAT_ENGL_NM) THEN ""Mitigation""
+ELSEIF NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) THEN ""Dual""
+END"
+128,Filter Dual,(NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM))
+129,Tota CF,TOTAL(SUM(CURR_ELEMENT_AMOUNT))
+130,Percentage by Category,SUM(CURR_ELEMENT_AMOUNT)/Calculation_949978110427234306
+131,Dual Finance,"ISNULL(IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'DUAL' THEN
+CURR_ELEMENT_AMOUNT
+END)"
+132,Mitigation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'MITIGATION' THEN
+    IIF(ISNULL(CCHNG_MITG_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+133,Adaptation Finance ,ISNULL(Calculation_460493125650857985)
+134,Approved Amount ,ORIG_ELEMENT_AMOUNT
+135,CF Total ,"IF CC_ES_element__Yes_No_ = 'Yes' THEN
+    CURR_ELEMENT_AMOUNT
+    else 0
+end"
+136,Adaptation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'ADAPTATION' THEN
+    IIF(ISNULL(CCHNG_ADPT_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+137,Filter Dual,(NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM))
+138,Climate Finance ,CURR_ELEMENT_AMOUNT (copy)
+139,Count_Dual,"COUNTD(IF Adaptation (copy 2) > 0 THEN 
+    IF CC_ES_element__Yes_No_ = 'Yes' THEN Operation_Number END
+END)"
+140,CF Operation Number ,COUNTD(IF CC_ES_element__Yes_No_ = 'Yes' THEN Operation_Number END)
+141,Count_Mitigation,"COUNTD(IF Adaptation (copy) > 0 THEN 
+    IF CC_ES_element__Yes_No_ = 'Yes' THEN Operation_Number END
+END)"
+142,Count_Current_Approved_Amount,COUNTD(IF CURRENT_APPROVED_AMOUNT > 0 THEN Operation_Number END)
+143,Count_Adaptacion,"COUNTD(IF Calculation_460493125650857985 > 0 THEN 
+    IF CC_ES_element__Yes_No_ = 'Yes' THEN Operation_Number END
+END)"
+144,Dual Finance ,Adaptation (copy 2)
+145,Mitigation Finance ,ISNULL(Adaptation (copy))
+146,Number of Projects,Count_Mitigation (copy 2)
+147,Number of Projects with CF,Count_Current_Element_Amount (copy 3)
+148,,"DATETRUNC('year', Approval_Date)"
+149,Name_Country Header,Name_Country
+150,Adaptation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'ADAPTATION' THEN
+    IIF(ISNULL(CCHNG_ADPT_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+151,Filter Dual,(NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM))
+152,Count_Adaptacion,"COUNTD(IF Calculation_460493125650857985 > 0 THEN 
+    IF CC_ES_element__Yes_No_ = 'Yes' THEN Operation_Number END
+END)"
+153,Adaptation_by_Category,SUM(IF Calculation_460493125650857985 <> 0 THEN CURR_ELEMENT_AMOUNT END)
+154,Min Date,{ FIXED: min(Approval_Date)}
+155,Max Date,{FIXED: MAX(Approval_Date)}
+156,Filter Dual,(NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM))
+157,Min Date,{ FIXED: min(Approval_Date)}
+158,Max Date,{FIXED: MAX(Approval_Date)}
+159,Filter Dual,(NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM))
+160,Min Date,{ FIXED: min(Approval_Date)}
+161,Max Date,{FIXED: MAX(Approval_Date)}
+162,Min Date,{ FIXED: min(Approval_Date)}
+163,Max Date,{FIXED: MAX(Approval_Date)}
+164,CF Total ,"IF CC_ES_element__Yes_No_ = 'Yes' THEN
+    CURR_ELEMENT_AMOUNT
+    else 0
+end"
+165,Total Percentage,SUM(CURR_ELEMENT_AMOUNT (copy))/SUM(ORIG_ELEMENT_AMOUNT)
+166,Type Cathegory,"IF NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND ISNULL(CCHNG_MITG_CAT_ENGL_NM) THEN ""Adaptation""
+ELSEIF NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM) AND ISNULL(CCHNG_ADPT_CAT_ENGL_NM) THEN ""Mitigation""
+ELSEIF NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) THEN ""Dual""
+END"
+167,Filter Dual,(NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM))
+168,Count_Current_Element_Amount,COUNTD(IF CURR_ELEMENT_AMOUNT > 0 THEN Operation_Number END)
+169,CF Operation Number ,COUNTD(IF CC_ES_element__Yes_No_ = 'Yes' THEN Operation_Number END)
+170,Min Date,{ FIXED: min(Approval_Date)}
+171,Max Date,{FIXED: MAX(Approval_Date)}
+172,Min Date,{ FIXED: min(Approval_Date)}
+173,Max Date,{FIXED: MAX(Approval_Date)}
+174,Count_Current_Element_Amount,COUNTD(IF CURR_ELEMENT_AMOUNT > 0 THEN Operation_Number END)
+175,CF Operation Number ,COUNTD(IF CC_ES_element__Yes_No_ = 'Yes' THEN Operation_Number END)
+176,Mitigation,"IF CC_ES_element__Yes_No_ = 'Yes' AND CATEGORY = 'MITIGATION' THEN
+    IIF(ISNULL(CCHNG_MITG_CAT_ENGL_NM),0,CURR_ELEMENT_AMOUNT)
+END"
+177,Filter Dual,(NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM))
+178,Mitigation_by_Category,SUM(IF Adaptation (copy) <> 0 THEN CURR_ELEMENT_AMOUNT ELSE 0 END)
+179,Count_Mitigation,"COUNTD(IF Adaptation (copy) > 0 THEN 
+    IF CC_ES_element__Yes_No_ = 'Yes' THEN Operation_Number END
+END)"
+180,Min Date,{ FIXED: min(Approval_Date)}
+181,Max Date,{FIXED: MAX(Approval_Date)}
+182,Filter Dual,(NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM))
+183,Min Date,{ FIXED: min(Approval_Date)}
+184,Max Date,{FIXED: MAX(Approval_Date)}
+185,Filter Dual,(NOT ISNULL(CCHNG_ADPT_CAT_ENGL_NM) AND NOT ISNULL(CCHNG_MITG_CAT_ENGL_NM))
+186,Name_Country Header,Name_Country
